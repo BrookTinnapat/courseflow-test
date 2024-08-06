@@ -9,26 +9,29 @@ function Modal() {
   const params = useParams();
   const userId = useAuth();
   const [subscribedCourses, setSubscribedCourses] = useState([]); // State to track subscribed courses // State to track expanded module
-  
+  const apiUrl = import.meta.env.VITE_API_URL;
+
   useEffect(() => {
     const subscribedCourses = async () => {
       const result = await axios.get(
-        `http://localhost:4000/courses/user/${userId.UserIdFromLocalStorage}/subscribed`
+        `${apiUrl}/courses/user/${userId.UserIdFromLocalStorage}/subscribed`
       );
       console.log(result);
       setSubscribedCourses(result.data);
     };
     subscribedCourses();
   }, []);
-  
+
   const postSubscribe = async () => {
-    await axios.post(`http://localhost:4000/courses/${userId.UserIdFromLocalStorage}/${params.Id}/subscribe`),
+    await axios.post(
+      `http://localhost:4000/courses/${userId.UserIdFromLocalStorage}/${params.Id}/subscribe`
+    ),
       {};
     navigate(`/user/subscribe/coursedetail/${params.Id}`);
   };
 
   const handlePostSubscribe = () => {
-     const subscribedCourseIds = subscribedCourses.map(
+    const subscribedCourseIds = subscribedCourses.map(
       (course) => course.courseid
     );
     const uniqueSubscribedCourseIds = [...new Set(subscribedCourseIds)];
