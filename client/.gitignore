@@ -15,7 +15,7 @@ chore
 dist
 dist-ssr
 *.local
-.env
+
 
 
 # Editor directories and files
@@ -29,4 +29,3 @@ dist-ssr
 *.sln
 *.sw?
 
-.env.local
